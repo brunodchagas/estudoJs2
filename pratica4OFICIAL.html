@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercicio pratica 4</title>
+</head>
+<body>
+    <form id="myForm">
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome"><br>
+        <label for="idade">Idade:</label><br>
+        <input type="number" id="idade" name="idade"><br>
+        <label for="cargo">Cargo:</label><br>
+        <input type="text" id="cargo" name="cargo"><br>
+        <label for="departamento">Departamento: </label><br>
+        <input type="text" id="departamento" name="departamento" ><br>
+        <label for="linguagem">Linguagem: </label><br>
+        <input type="text" id="linguagem" name="linguagem"><br>
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        class Funcionario{
+            constructor(nome, idade, cargo){
+                this.nome = nome;
+                this.idade = idade;
+                this.cargo = cargo;
+            }
+
+            apresentar(){
+                console.log(`Olá, eu sou ${this.nome}, e tenho ${this.idade} anos.`);
+            }
+
+            trabalhar (){
+                console.log(`Eu sou ${this.cargo}`);
+            }
+        }
+
+        class Gerente extends Funcionario{
+            constructor(nome, idade, cargo, departamento){
+                super(nome,idade,cargo)
+                this.departamento = departamento;
+            }
+            gerenciar (){
+                console.log(`Eu gerencio o departamento da ${this.departamento}.`)
+                return `Eu gerencio o departamento da ${this.departamento}.`;
+            }
+        }
+
+        class Desenvolvedor extends Funcionario{
+            constructor(nome, idade, cargo, linguagem){
+                super(nome,idade,cargo)
+                this.linguagem = linguagem;
+            }
+
+            programar(){
+                console.log(`Eu programo com ${this.linguagem}.`)
+                return `Eu programo com ${this.linguagem}.`;
+            }
+        }
+
+        document.getElementById('myForm').addEventListener('submit',function(event){
+            event.preventDefault();
+            const nome = document.getElementById('nome').value;
+            const idade = document.getElementById('idade').value;
+            const cargo = document.getElementById('cargo').value;
+            const departamento = document.getElementById('departamento').value
+            const linguagem = document.getElementById('linguagem').value
+
+            let mensagem = "";
+
+            if (cargo =='Gerente'){
+                const p2 = new Gerente (nome,idade,cargo,departamento);
+                p2.apresentar();
+                p2.trabalhar();
+                mensagem = p2.gerenciar();
+            }else if (cargo =='Desenvolvedor'){
+                const p3 = new Desenvolvedor(nome,idade,cargo,linguagem)
+                p3.apresentar();
+                p3.trabalhar();
+                mensagem = p3.programar();
+            }
+
+            if(mensagem != ""){
+                alert(mensagem);
+            }
+
+            //restante do códig
+    try {
+        if (!nome||!idade||!cargo||(cargo !=='Gerente'&& cargo !=='Desenvolvedor')){
+            throw new Error ('Todos os campos são OBRIGATÓRIOS');
+        }
+        if (cargo =='Gerente' && !departamento){
+            throw new Error('Para o cargo de Gerente, é necessário informar o departamento');
+        }
+        if (cargo =='Desenvolvedor'&& !linguagem){
+            throw new Error('Para o cargo de Desenvolvedor, é necessário informar a linguagem de programação.');
+        }
+        if(isNaN(idade)){
+            throw new Error('A idade deve ser um número');
+        }
+        if(idade <= 0 || idade > 150){
+            throw new Error('A idade deve ser um valor entre 1  e 150');
+        }
+        if(nome.length <3 || nome.length > 50){
+            throw new Error ('O nome deve ter entre 3 a 50 caracteres.');
+        }
+        if(cargo.length <3 || cargo.length > 50){
+            throw new Error('O cargo deve ter entre 3 a 50 caracteres');
+        }
+        if(departamento && (departamento.length <3 || departamento.length > 50)){
+            throw new Error('O departamento deve ter entre 3 a 50 caracteres');
+        }
+        if(linguagem&&(linguagem.length <3 || linguagem.length> 50)){
+            throw new Error('A linguagem de programação deve ter entre 3 a 50 caracteres');
+        }
+    } catch (error){
+        alert(error.message);
+    }
+});
+    </script>
+</body>
+</html>
