@@ -28,11 +28,11 @@
             }
 
             apresentar(){
-                console.log(`Olá, eu sou ${this.nome}, e tenho ${this.idade} anos.`);
+                return `Olá, eu sou ${this.nome}, e tenho ${this.idade} anos.`;
             }
 
             trabalhar (){
-                console.log(`Eu sou ${this.cargo}`);
+                return `Eu sou ${this.cargo}`;
             }
         }
 
@@ -42,7 +42,6 @@
                 this.departamento = departamento;
             }
             gerenciar (){
-                console.log(`Eu gerencio o departamento da ${this.departamento}.`)
                 return `Eu gerencio o departamento da ${this.departamento}.`;
             }
         }
@@ -54,7 +53,6 @@
             }
 
             programar(){
-                console.log(`Eu programo com ${this.linguagem}.`)
                 return `Eu programo com ${this.linguagem}.`;
             }
         }
@@ -71,14 +69,10 @@
 
             if (cargo =='Gerente'){
                 const p2 = new Gerente (nome,idade,cargo,departamento);
-                p2.apresentar();
-                p2.trabalhar();
-                mensagem = p2.gerenciar();
+                mensagem = p2.apresentar()+'\n'+p2.trabalhar()+'\n'+p2.gerenciar();
             }else if (cargo =='Desenvolvedor'){
                 const p3 = new Desenvolvedor(nome,idade,cargo,linguagem)
-                p3.apresentar();
-                p3.trabalhar();
-                mensagem = p3.programar();
+                mensagem = p3.apresentar()+'\n'+p3.trabalhar()+'\n'+p3.programar();
             }
 
             if(mensagem != ""){
